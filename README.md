@@ -34,3 +34,7 @@ only works inside the panel's own repository.
 `embed.go` lists the folders the panel builds into its binary; leave it alone unless you add a connector.
 
 Want to fix or improve a connector? See [CONTRIBUTING.md](CONTRIBUTING.md).
+
+## License
+
+[MIT](LICENSE). By opening a pull request you agree that your contribution is released under the same license.

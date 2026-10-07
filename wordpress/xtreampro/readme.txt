@@ -5,7 +5,8 @@ Requires at least: 5.8
 Tested up to: 6.6
 Requires PHP: 7.4
 Stable tag: 1.1.1
-License: GPLv2 or later
+License: MIT
+License URI: https://opensource.org/licenses/MIT
 
 Connects WordPress, WooCommerce, Easy Digital Downloads and SureCart to the Xtream UI Pro IPTV panel: package tables, "my lines" page and automatic line provisioning for shop orders.
 

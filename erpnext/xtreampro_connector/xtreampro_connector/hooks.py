@@ -9,7 +9,7 @@ app_title = "Xtream UI Pro Connector"
 app_publisher = "Xtream UI Pro"
 app_description = "Sell IPTV lines and sub-reseller accounts from ERPNext through the Xtream UI Pro Reseller API"
 app_email = "support@example.com"
-app_license = "LGPL-3.0"
+app_license = "MIT"
 
 required_apps = ["erpnext"]
 

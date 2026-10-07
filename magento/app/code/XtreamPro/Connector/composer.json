@@ -3,7 +3,7 @@
     "description": "Sell Xtream UI Pro IPTV lines and sub-reseller accounts from Magento 2 through the panel's Reseller API.",
     "type": "magento2-module",
     "version": "1.1.0",
-    "license": "proprietary",
+    "license": "MIT",
     "require": {
         "php": ">=8.1",
         "ext-curl": "*",

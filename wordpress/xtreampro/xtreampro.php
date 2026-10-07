@@ -6,7 +6,8 @@
  * Requires at least: 5.8
  * Requires PHP:      7.4
  * Author:            Xtream UI Pro
- * License:           GPL-2.0-or-later
+ * License:           MIT
+ * License URI:       https://opensource.org/licenses/MIT
  * Text Domain:       xtreampro
  *
  * @package XtreamPro

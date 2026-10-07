@@ -10,7 +10,7 @@ resulting credentials can be renewed, suspended, moved to another package and
 e-mailed from Odoo. Changes of each release: CHANGELOG.md (1.0.0 was the first release).
 """,
     "author": "Xtream UI Pro",
-    "license": "LGPL-3",
+    "license": "Other OSI approved licence",
     "depends": ["sale_management"],
     "external_dependencies": {"python": ["requests"]},
     "data": [

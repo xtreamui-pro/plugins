@@ -2,7 +2,7 @@
     "schema": "1.0",
     "type": "whmcs-servers",
     "name": "xtreampro",
-    "license": "proprietary",
+    "license": "MIT",
     "category": "servers",
     "description": {
         "name": "Xtream UI Pro",
