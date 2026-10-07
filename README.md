@@ -1,5 +1,7 @@
 # Xtream UI Pro — connectors
 
+**Downloads and install guides: <https://plugins.xtream-ui.pro>**
+
 Source of the connectors that resellers of an [Xtream UI Pro](https://github.com/xtreamui-pro) panel install
 in their own billing, shop or ERP system. Each connector sells IPTV lines through the panel's
 **Reseller API** with the reseller's own API key.
