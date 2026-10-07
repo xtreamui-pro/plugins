@@ -1,0 +1,18 @@
+{
+  "id": __ORDER__,
+  "name": "#1002",
+  "email": "__EMAIL__",
+  "financial_status": "paid",
+  "customer": { "id": 706405506930370085, "email": "__EMAIL__", "first_name": "Rita", "last_name": "Seller" },
+  "line_items": [
+    {
+      "id": __ITEM1__,
+      "variant_id": 909000111,
+      "product_id": 632910500,
+      "title": "Reseller pack, 100 credits",
+      "sku": "",
+      "quantity": 1,
+      "price": "90.00"
+    }
+  ]
+}

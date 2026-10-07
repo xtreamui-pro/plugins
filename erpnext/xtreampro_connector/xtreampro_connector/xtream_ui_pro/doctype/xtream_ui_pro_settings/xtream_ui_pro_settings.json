@@ -1,0 +1,115 @@
+{
+ "actions": [],
+ "creation": "2026-10-04 12:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "connection_section",
+  "api_url",
+  "api_key",
+  "panel_url",
+  "column_break_1",
+  "email_credentials",
+  "install_id",
+  "actions_section",
+  "test_connection",
+  "sync_packages",
+  "column_break_2",
+  "last_result"
+ ],
+ "fields": [
+  {
+   "fieldname": "connection_section",
+   "fieldtype": "Section Break",
+   "label": "Panel connection"
+  },
+  {
+   "fieldname": "api_url",
+   "fieldtype": "Data",
+   "label": "API address",
+   "description": "Address of the panel's API (the cmd/api server), for example https://api.example.com. Do not add /reseller/v1."
+  },
+  {
+   "fieldname": "api_key",
+   "fieldtype": "Password",
+   "label": "Reseller API key",
+   "description": "The API key of the reseller account, from the panel's API key page. Only reseller accounts work."
+  },
+  {
+   "fieldname": "panel_url",
+   "fieldtype": "Data",
+   "label": "Panel address (optional)",
+   "description": "Where sub-resellers sign in to the panel. It is shown in the credentials sent to the customer. Leave empty to show none."
+  },
+  {
+   "fieldname": "column_break_1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "email_credentials",
+   "fieldtype": "Check",
+   "label": "E-mail the credentials to the customer",
+   "default": "1",
+   "description": "Send the sign-in details to the customer's e-mail address as soon as a line or account is created."
+  },
+  {
+   "fieldname": "install_id",
+   "fieldtype": "Data",
+   "label": "Installation id",
+   "read_only": 1,
+   "description": "Set automatically. It is part of every request id so that two shops using the same reseller key never replay each other's orders. Do not change it."
+  },
+  {
+   "fieldname": "actions_section",
+   "fieldtype": "Section Break",
+   "label": "Actions"
+  },
+  {
+   "fieldname": "test_connection",
+   "fieldtype": "Button",
+   "label": "Test connection"
+  },
+  {
+   "fieldname": "sync_packages",
+   "fieldtype": "Button",
+   "label": "Sync packages"
+  },
+  {
+   "fieldname": "column_break_2",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "last_result",
+   "fieldtype": "Small Text",
+   "label": "Last test / sync result",
+   "read_only": 1
+  }
+ ],
+ "index_web_pages_for_search": 0,
+ "links": [],
+ "modified": "2026-10-04 12:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Xtream UI Pro",
+ "name": "Xtream UI Pro Settings",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "role": "System Manager",
+   "permlevel": 0,
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 1,
+   "report": 1,
+   "export": 1,
+   "share": 1,
+   "print": 1,
+   "email": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 0,
+ "issingle": 1
+}

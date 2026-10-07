@@ -1,0 +1,40 @@
+{% extends "templates/web.html" %}
+
+{% block page_content %}
+<h1>{{ _("My IPTV") }}</h1>
+
+{% if error %}
+<p class="text-muted">{{ error | e }}</p>
+{% endif %}
+
+{% if not lines and not accounts %}
+<p>{{ _("You have no IPTV subscription yet.") }}</p>
+{% endif %}
+
+{% for line in lines %}
+<h3>{{ _("IPTV subscription") }}</h3>
+<table class="table table-bordered">
+	<tr><th>{{ _("Status") }}</th><td>{{ line.status | e }}</td></tr>
+	<tr><th>{{ _("Expires (UTC)") }}</th><td>{{ (line.expiry or _("Never")) | string | e }}</td></tr>
+	<tr><th>{{ _("Max connections") }}</th><td>{{ line.max_connections | string | e }}</td></tr>
+	<tr><th>{{ _("Server URL") }}</th><td>{{ line.server | e }}</td></tr>
+	<tr><th>{{ _("Username") }}</th><td>{{ line.username | e }}</td></tr>
+	<tr><th>{{ _("Password") }}</th><td>{{ line.password | e }}</td></tr>
+	<tr><th>{{ _("Playlist URL") }}</th><td>{{ line.playlist | e }}</td></tr>
+	<tr><th>{{ _("Web player") }}</th><td>{{ line.player | e }}</td></tr>
+</table>
+{% endfor %}
+
+{% for account in accounts %}
+<h3>{{ _("Reseller account") }}</h3>
+<table class="table table-bordered">
+	<tr><th>{{ _("Status") }}</th><td>{{ account.status | e }}</td></tr>
+	<tr><th>{{ _("Username") }}</th><td>{{ account.username | e }}</td></tr>
+	<tr><th>{{ _("Password") }}</th><td>{{ account.password | e }}</td></tr>
+	<tr><th>{{ _("Credits") }}</th><td>{{ account.credits | string | e }}</td></tr>
+	{% if account.panel_url %}
+	<tr><th>{{ _("Sign in") }}</th><td>{{ account.panel_url | e }}</td></tr>
+	{% endif %}
+</table>
+{% endfor %}
+{% endblock %}

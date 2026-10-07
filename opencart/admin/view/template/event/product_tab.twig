@@ -1,0 +1,66 @@
+<div id="tab-xtreampro" class="tab-pane">
+  <div class="row mb-3">
+    <label for="input-xtreampro-kind" class="col-sm-2 col-form-label">{{ xp_entry_kind }}</label>
+    <div class="col-sm-10">
+      <select name="xtreampro[kind]" id="input-xtreampro-kind" class="form-select">
+        <option value=""{% if kind == '' %} selected{% endif %}>{{ xp_kind_none }}</option>
+        <option value="line"{% if kind == 'line' %} selected{% endif %}>{{ xp_kind_line }}</option>
+        <option value="reseller"{% if kind == 'reseller' %} selected{% endif %}>{{ xp_kind_reseller }}</option>
+      </select>
+      <div class="form-text">{{ xp_help_kind }}</div>
+    </div>
+  </div>
+  <div class="row mb-3 xtreampro-line">
+    <label for="input-xtreampro-package" class="col-sm-2 col-form-label">{{ xp_entry_package }}</label>
+    <div class="col-sm-10">
+      <select name="xtreampro[package_id]" id="input-xtreampro-package" class="form-select">
+        <option value="0">{{ xp_text_select_package }}</option>
+        {% for package in packages %}
+          <option value="{{ package.id }}"{% if package.id == package_id %} selected{% endif %}>{{ package.label|e }}</option>
+        {% endfor %}
+      </select>
+      <div class="form-text">{{ xp_help_package }}</div>
+      {% if package_error %}
+        <div class="text-danger">{{ xp_text_package_error|format(package_error|e) }}</div>
+      {% elseif not packages %}
+        <div class="text-danger">{{ xp_text_no_packages }}</div>
+      {% endif %}
+    </div>
+  </div>
+  <div class="row mb-3 xtreampro-line">
+    <label class="col-sm-2 col-form-label">{{ xp_entry_trial }}</label>
+    <div class="col-sm-10">
+      <div class="form-check form-switch form-switch-lg">
+        <input type="hidden" name="xtreampro[trial]" value="0"/>
+        <input type="checkbox" name="xtreampro[trial]" value="1" id="input-xtreampro-trial" class="form-check-input"{% if trial %} checked{% endif %}/>
+      </div>
+      <div class="form-text">{{ xp_help_trial }}</div>
+    </div>
+  </div>
+  <div class="row mb-3 xtreampro-reseller">
+    <label for="input-xtreampro-credits" class="col-sm-2 col-form-label">{{ xp_entry_credits }}</label>
+    <div class="col-sm-10">
+      <input type="number" name="xtreampro[credits]" value="{{ credits }}" min="0" step="1" id="input-xtreampro-credits" class="form-control"/>
+      <div class="form-text">{{ xp_help_credits }}</div>
+    </div>
+  </div>
+  <script type="text/javascript"><!--
+  (function () {
+      var kind = document.getElementById('input-xtreampro-kind');
+
+      // Package and trial only matter for lines, credits only for sub-resellers.
+      function update() {
+          document.querySelectorAll('#tab-xtreampro .xtreampro-line').forEach(function (row) {
+              row.style.display = kind.value === 'line' ? '' : 'none';
+          });
+
+          document.querySelectorAll('#tab-xtreampro .xtreampro-reseller').forEach(function (row) {
+              row.style.display = kind.value === 'reseller' ? '' : 'none';
+          });
+      }
+
+      kind.addEventListener('change', update);
+      update();
+  })();
+  //--></script>
+</div>

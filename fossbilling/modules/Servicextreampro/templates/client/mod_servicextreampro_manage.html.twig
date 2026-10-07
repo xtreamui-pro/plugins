@@ -1,0 +1,31 @@
+{% set d = client.servicextreampro_details({'order_id': order.id}) %}
+<div class="card mb-4">
+    <div class="card-header py-3">
+        <h2 class="mb-0">{{ 'Your IPTV access'|trans }}</h2>
+    </div>
+    <div class="card-body">
+        {% if d.error %}
+            <div class="alert alert-warning mb-0">{{ d.error }}</div>
+        {% else %}
+            <table class="table table-bordered table-sm">
+                <tbody>
+                <tr><td>{{ 'Username'|trans }}</td><td><code>{{ d.username }}</code></td></tr>
+                <tr><td>{{ 'Password'|trans }}</td><td><code>{{ d.password }}</code></td></tr>
+                <tr><td>{{ 'Status'|trans }}</td><td>{{ d.status }}</td></tr>
+                {% if d.type == 'reseller' %}
+                    <tr><td>{{ 'Credit balance'|trans }}</td><td>{{ d.credits }}</td></tr>
+                {% else %}
+                    <tr><td>{{ 'Expires'|trans }}</td><td>{{ d.expiry }}</td></tr>
+                    <tr><td>{{ 'Max connections'|trans }}</td><td>{{ d.max_connections }}</td></tr>
+                    {% if d.links.server is defined %}<tr><td>{{ 'Server URL'|trans }}</td><td><code>{{ d.links.server }}</code></td></tr>{% endif %}
+                    {% if d.links.m3u is defined %}<tr><td>{{ 'Playlist (M3U)'|trans }}</td><td><code>{{ d.links.m3u }}</code></td></tr>{% endif %}
+                    {% if d.links.m3u_hls is defined %}<tr><td>{{ 'Playlist (M3U, HLS)'|trans }}</td><td><code>{{ d.links.m3u_hls }}</code></td></tr>{% endif %}
+                    {% if d.links.xmltv is defined %}<tr><td>{{ 'TV guide (XMLTV)'|trans }}</td><td><code>{{ d.links.xmltv }}</code></td></tr>{% endif %}
+                    {% if d.links.player_api is defined %}<tr><td>{{ 'Player API'|trans }}</td><td><code>{{ d.links.player_api }}</code></td></tr>{% endif %}
+                    {% if d.links.web_player is defined %}<tr><td>{{ 'Web player'|trans }}</td><td><a href="{{ d.links.web_player }}" target="_blank" rel="noopener noreferrer">{{ d.links.web_player }}</a></td></tr>{% endif %}
+                {% endif %}
+                </tbody>
+            </table>
+        {% endif %}
+    </div>
+</div>

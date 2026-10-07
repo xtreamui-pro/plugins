@@ -1,0 +1,14 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_xtreampro_package_user,xtreampro.package user,model_xtreampro_package,base.group_user,1,0,0,0
+access_xtreampro_package_manager,xtreampro.package manager,model_xtreampro_package,sales_team.group_sale_manager,1,1,1,1
+access_xtreampro_line_salesman,xtreampro.line salesman,model_xtreampro_line,sales_team.group_sale_salesman,1,0,0,0
+access_xtreampro_line_manager,xtreampro.line manager,model_xtreampro_line,sales_team.group_sale_manager,1,1,1,1
+access_xtreampro_reseller_salesman,xtreampro.reseller salesman,model_xtreampro_reseller,sales_team.group_sale_salesman,1,0,0,0
+access_xtreampro_reseller_manager,xtreampro.reseller manager,model_xtreampro_reseller,sales_team.group_sale_manager,1,1,1,1
+access_xtreampro_credit_transfer_salesman,xtreampro.credit.transfer salesman,model_xtreampro_credit_transfer,sales_team.group_sale_salesman,1,0,0,0
+access_xtreampro_credit_transfer_manager,xtreampro.credit.transfer manager,model_xtreampro_credit_transfer,sales_team.group_sale_manager,1,1,1,1
+access_xtreampro_credit_wizard_manager,xtreampro.credit.wizard manager,model_xtreampro_credit_wizard,sales_team.group_sale_manager,1,1,1,1
+access_xtreampro_group_user,xtreampro.group user,model_xtreampro_group,base.group_user,1,0,0,0
+access_xtreampro_group_manager,xtreampro.group manager,model_xtreampro_group,sales_team.group_sale_manager,1,1,1,1
+access_xtreampro_line_package_wizard_manager,xtreampro.line.package.wizard manager,model_xtreampro_line_package_wizard,sales_team.group_sale_manager,1,1,1,1
+access_xtreampro_webhook_event_manager,xtreampro.webhook.event manager,model_xtreampro_webhook_event,sales_team.group_sale_manager,1,0,0,0

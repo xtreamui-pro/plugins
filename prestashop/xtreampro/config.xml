@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<module>
+    <name>xtreampro</name>
+    <displayName><![CDATA[Xtream UI Pro]]></displayName>
+    <version><![CDATA[1.1.0]]></version>
+    <description><![CDATA[Sell IPTV lines and sub-reseller accounts through the Reseller API of your Xtream UI Pro panel.]]></description>
+    <author><![CDATA[Xtream UI Pro]]></author>
+    <tab><![CDATA[administration]]></tab>
+    <is_configurable>1</is_configurable>
+    <need_instance>0</need_instance>
+    <limited_countries></limited_countries>
+</module>

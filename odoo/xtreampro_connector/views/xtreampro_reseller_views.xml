@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="xtreampro_credit_transfer_view_form" model="ir.ui.view">
+        <field name="name">xtreampro.credit.transfer.form</field>
+        <field name="model">xtreampro.credit.transfer</field>
+        <field name="arch" type="xml">
+            <form create="false" edit="false">
+                <header>
+                    <button name="action_retry" type="object" string="Retry" class="oe_highlight"
+                            invisible="state not in ('draft', 'error')" groups="sales_team.group_sale_manager"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,done"/>
+                </header>
+                <sheet>
+                    <div class="alert alert-danger" role="alert" invisible="state != 'error' or not last_error">
+                        <field name="last_error" readonly="1"/>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="reseller_id"/>
+                            <field name="credits"/>
+                            <field name="note"/>
+                        </group>
+                        <group>
+                            <field name="sale_order_id"/>
+                            <field name="sale_line_id"/>
+                            <field name="date"/>
+                            <field name="request_id"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="xtreampro_reseller_view_tree" model="ir.ui.view">
+        <field name="name">xtreampro.reseller.tree</field>
+        <field name="model">xtreampro.reseller</field>
+        <field name="arch" type="xml">
+            <tree create="false" decoration-danger="state == 'error'" decoration-warning="state == 'disabled'">
+                <field name="username"/>
+                <field name="partner_id"/>
+                <field name="sale_order_id"/>
+                <field name="state" widget="badge"/>
+                <field name="credits"/>
+                <field name="last_sync" optional="hide"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="xtreampro_reseller_view_form" model="ir.ui.view">
+        <field name="name">xtreampro.reseller.form</field>
+        <field name="model">xtreampro.reseller</field>
+        <field name="arch" type="xml">
+            <form create="false">
+                <header>
+                    <button name="action_retry" type="object" string="Retry" class="oe_highlight"
+                            invisible="state != 'error' or panel_user_id" groups="sales_team.group_sale_manager"/>
+                    <button name="action_send_credentials" type="object" string="Send credentials"
+                            invisible="state not in ('active', 'disabled')"/>
+                    <button name="action_add_credits" type="object" string="Add credits"
+                            invisible="not panel_user_id or state not in ('active', 'disabled')"
+                            groups="sales_team.group_sale_manager"/>
+                    <button name="action_take_credits" type="object" string="Take back credits"
+                            invisible="not panel_user_id or state not in ('active', 'disabled')"
+                            groups="sales_team.group_sale_manager"/>
+                    <button name="action_suspend" type="object" string="Suspend"
+                            invisible="state != 'active'" groups="sales_team.group_sale_manager"/>
+                    <button name="action_unsuspend" type="object" string="Unsuspend"
+                            invisible="state != 'disabled' or not panel_user_id" groups="sales_team.group_sale_manager"/>
+                    <button name="action_refresh" type="object" string="Refresh"
+                            invisible="not panel_user_id" groups="sales_team.group_sale_manager"/>
+                    <button name="action_delete_on_panel" type="object" string="Delete on panel"
+                            invisible="not panel_user_id or not active" groups="sales_team.group_sale_manager"
+                            confirm="This deletes the account on the panel and cannot be undone: its credits, lines and sub-accounts go to your reseller account and its personal data is erased. Continue?"/>
+                    <field name="state" widget="statusbar" statusbar_visible="active,disabled"/>
+                </header>
+                <sheet>
+                    <div class="alert alert-danger" role="alert" invisible="not last_error">
+                        <field name="last_error" readonly="1"/>
+                    </div>
+                    <div class="alert alert-info" role="alert" invisible="active">
+                        This record is archived in Odoo only: unless it was deleted on the panel, the account still exists there.
+                    </div>
+                    <div class="oe_title">
+                        <h1><field name="name"/></h1>
+                    </div>
+                    <group>
+                        <group string="Customer">
+                            <field name="partner_id" readonly="panel_user_id"/>
+                            <field name="sale_order_id"/>
+                            <field name="company_id" groups="base.group_multi_company" readonly="panel_user_id"/>
+                            <field name="active" invisible="1"/>
+                        </group>
+                        <group string="Account">
+                            <field name="username" readonly="state not in ('draft', 'error') or panel_user_id"/>
+                            <field name="password" readonly="state not in ('draft', 'error') or panel_user_id"/>
+                            <field name="credits"/>
+                            <field name="last_sync"/>
+                            <field name="last_event_at" invisible="not last_event_at"/>
+                            <field name="panel_user_id"/>
+                            <field name="group_id" readonly="panel_user_id"/>
+                            <field name="login_url" widget="url"/>
+                        </group>
+                    </group>
+                    <p class="text-muted">
+                        Archiving this record does not call the panel; suspend the account first if it must stop
+                        working, or use "Delete on panel" to remove it for good.
+                    </p>
+                    <notebook>
+                        <page string="Credit transfers" name="transfers">
+                            <field name="transfer_ids" readonly="1">
+                                <tree decoration-danger="state == 'error'">
+                                    <field name="date"/>
+                                    <field name="credits"/>
+                                    <field name="note"/>
+                                    <field name="sale_order_id"/>
+                                    <field name="state" widget="badge"/>
+                                    <button name="action_retry" type="object" string="Retry" icon="fa-repeat"
+                                            invisible="state not in ('draft', 'error')"
+                                            groups="sales_team.group_sale_manager"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="xtreampro_reseller_view_search" model="ir.ui.view">
+        <field name="name">xtreampro.reseller.search</field>
+        <field name="model">xtreampro.reseller</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="username"/>
+                <field name="partner_id"/>
+                <field name="sale_order_id"/>
+                <filter name="active_resellers" string="Active" domain="[('state', '=', 'active')]"/>
+                <filter name="suspended" string="Suspended" domain="[('state', '=', 'disabled')]"/>
+                <filter name="errors" string="Errors" domain="[('state', '=', 'error')]"/>
+                <separator/>
+                <filter name="archived" string="Archived" domain="[('active', '=', False)]"/>
+                <group expand="0" string="Group By">
+                    <filter name="group_state" string="Status" context="{'group_by': 'state'}"/>
+                    <filter name="group_partner" string="Customer" context="{'group_by': 'partner_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="xtreampro_reseller_action" model="ir.actions.act_window">
+        <field name="name">Sub-resellers</field>
+        <field name="res_model">xtreampro.reseller</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">No sub-reseller accounts yet</p>
+            <p>Accounts are created when you confirm a sale order containing a product of kind "Sub-reseller account".</p>
+        </field>
+    </record>
+</odoo>

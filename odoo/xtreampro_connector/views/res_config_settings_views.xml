@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_config_settings_view_form_xtreampro" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.xtreampro</field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="95"/>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <!-- Odoo 17 / 18 settings markup (app / block / setting). Odoo 16
+                 used div.settings and app_settings_block instead. -->
+            <xpath expr="//form" position="inside">
+                <app data-string="Xtream UI Pro" string="Xtream UI Pro" name="xtreampro_connector" groups="base.group_system">
+                    <block title="Xtream UI Pro panel" name="xtreampro_panel">
+                        <setting string="API address" help="Public address of the panel API, for example https://api.example.com">
+                            <field name="xtreampro_api_url" placeholder="https://api.example.com"/>
+                        </setting>
+                        <setting string="API key" help="Key of a reseller account (panel dashboard, API key page).">
+                            <field name="xtreampro_api_key" password="True"/>
+                        </setting>
+                        <setting string="Connection" help="Save the settings first if you changed the address or the key.">
+                            <div class="mt8">
+                                <button name="action_xtreampro_test_connection" type="object" string="Test connection" class="btn-secondary me-2"/>
+                                <button name="action_xtreampro_sync_packages" type="object" string="Sync packages" class="btn-secondary"/>
+                            </div>
+                        </setting>
+                        <setting string="Panel address" help="Optional. Address of the panel dashboard; sub-resellers get address/login as their sign-in link.">
+                            <field name="xtreampro_panel_url" placeholder="https://panel.example.com"/>
+                        </setting>
+                    </block>
+                    <block title="Webhook from the panel" name="xtreampro_webhook">
+                        <setting string="Webhook address" help="The panel posts line events (renewed, enabled, disabled, deleted, expired) here. It must be an https address the panel can reach (system parameter web.base.url).">
+                            <field name="xtreampro_webhook_url"/>
+                        </setting>
+                        <setting string="Webhook secret" help="Signs the events. Leave it as it is, or paste the secret of a webhook you created on the panel. Without it every event is refused.">
+                            <field name="xtreampro_webhook_secret" password="True"/>
+                            <div class="mt8">
+                                <button name="action_xtreampro_register_webhook" type="object" string="Register webhook" class="btn-secondary me-2"/>
+                                <button name="action_xtreampro_register_webhook_subs" type="object" string="Register webhook (with sub-resellers' lines)" class="btn-secondary me-2"/>
+                                <button name="action_xtreampro_test_webhook" type="object" string="Send test event" class="btn-secondary me-2"/>
+                                <button name="action_xtreampro_remove_webhook" type="object" string="Remove webhook" class="btn-secondary"/>
+                            </div>
+                        </setting>
+                        <setting string="Events sent" help="Whose lines the registered webhook reports. The second Register button also reports the lines of the sub-reseller accounts this Odoo sold; Odoo then only notes the time of such an event on the account.">
+                            <field name="xtreampro_webhook_scope"/>
+                        </setting>
+                    </block>
+                </app>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="xtreampro_config_settings_action" model="ir.actions.act_window">
+        <field name="name">Xtream UI Pro Settings</field>
+        <field name="res_model">res.config.settings</field>
+        <field name="view_mode">form</field>
+        <field name="target">inline</field>
+        <field name="context">{'module': 'xtreampro_connector', 'bin_size': False}</field>
+    </record>
+</odoo>

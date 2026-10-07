@@ -1,0 +1,67 @@
+{% extends request.ajax ? "layout_blank.html.twig" : "layout_default.html.twig" %}
+
+{% block meta_title %}{{ 'Xtream UI Pro'|trans }}{% endblock %}
+
+{% set active_menu = 'extensions' %}
+
+{% block content %}
+{% set status = admin.servicextreampro_status %}
+{% set cfg = admin.extension_config_get({'ext': 'mod_servicextreampro'}) %}
+
+<div class="card mb-4">
+    <div class="card-header">
+        <h3 class="card-title">{{ 'Panel connection'|trans }}</h3>
+    </div>
+    <form method="post" action="{{ 'servicextreampro/save_settings'|api_url }}" {{ fb_api_form({reload: true, message: 'Settings saved'|trans}) }}>
+        <div class="card-body">
+            <p class="text-secondary">{{ 'The address of the Xtream UI Pro API (cmd/api) and the API key of your reseller account (panel dashboard, page "API key"). Orders sell lines and sub-reseller accounts of that reseller and are charged to its credits.'|trans }}</p>
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <label class="form-label">{{ 'Panel API URL'|trans }}</label>
+                    <input class="form-control" type="url" name="panel_url" value="{{ cfg.panel_url|default('') }}" placeholder="https://api.example.com" required>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">{{ 'Reseller API key'|trans }}</label>
+                    <input class="form-control" type="password" name="api_key" value="" autocomplete="new-password"
+                           placeholder="{% if cfg.api_key|default(false) %}{{ 'Saved - leave empty to keep it'|trans }}{% endif %}">
+                </div>
+            </div>
+            <div class="mt-3">
+                {% if status.ok %}
+                    <div class="alert alert-success mb-0">{{ 'Connected as'|trans }} <strong>{{ status.username }}</strong>, {{ 'credits'|trans }}: <strong>{{ status.credits }}</strong></div>
+                {% elseif status.error %}
+                    <div class="alert alert-danger mb-0">{{ status.error }}</div>
+                {% else %}
+                    <div class="alert alert-secondary mb-0">{{ 'Not configured yet.'|trans }}</div>
+                {% endif %}
+            </div>
+        </div>
+        <div class="card-footer text-end">
+            <button type="submit" class="btn btn-primary">{{ 'Save and test'|trans }}</button>
+        </div>
+    </form>
+</div>
+
+{% if status.ok %}
+<div class="card mb-4">
+    <div class="card-header">
+        <h3 class="card-title">{{ 'Packages you can sell'|trans }}</h3>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-hover mb-0">
+            <thead><tr><th>{{ 'ID'|trans }}</th><th>{{ 'Name'|trans }}</th><th>{{ 'Price and duration'|trans }}</th></tr></thead>
+            <tbody>
+            {% for pkg in status.packages %}
+                <tr><td>{{ pkg.id }}</td><td>{{ pkg.name }}</td><td>{{ pkg.detail }}</td></tr>
+            {% else %}
+                <tr><td colspan="3" class="text-secondary">{{ 'The reseller has no packages.'|trans }}</td></tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="card-footer text-secondary">
+        {{ 'To sell them: Products > New product, type "Xtreampro". Choose what it sells on the product\'s Configuration tab.'|trans }}
+    </div>
+</div>
+{% endif %}
+{% endblock %}

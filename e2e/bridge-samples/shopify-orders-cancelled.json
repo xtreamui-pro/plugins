@@ -1,0 +1,9 @@
+{
+  "id": __ORDER__,
+  "name": "#1002",
+  "email": "__EMAIL__",
+  "cancelled_at": "2026-10-05T09:30:00+02:00",
+  "cancel_reason": "customer",
+  "financial_status": "refunded",
+  "line_items": []
+}

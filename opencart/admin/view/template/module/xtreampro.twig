@@ -1,0 +1,144 @@
+{{ header }}{{ column_left }}
+<div id="content">
+  <div class="page-header">
+    <div class="container-fluid">
+      <div class="float-end">
+        <button type="submit" form="form-module" data-bs-toggle="tooltip" title="{{ button_save }}" class="btn btn-primary"><i class="fa-solid fa-save"></i></button>
+        <a href="{{ back }}" data-bs-toggle="tooltip" title="{{ button_back }}" class="btn btn-light"><i class="fa-solid fa-reply"></i></a></div>
+      <h1>{{ heading_title }}</h1>
+      <ol class="breadcrumb">
+        {% for breadcrumb in breadcrumbs %}
+          <li class="breadcrumb-item"><a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a></li>
+        {% endfor %}
+      </ol>
+    </div>
+  </div>
+  <div class="container-fluid">
+    <div class="card">
+      <div class="card-header"><i class="fa-solid fa-pencil"></i> {{ xp_text_edit }} <small class="text-muted">({{ xp_text_version }} {{ version }})</small></div>
+      <div class="card-body">
+        <form id="form-module" action="{{ save }}" method="post" data-oc-toggle="ajax">
+          <div class="row mb-3">
+            <label class="col-sm-2 col-form-label">{{ xp_entry_status }}</label>
+            <div class="col-sm-10">
+              <div class="form-check form-switch form-switch-lg">
+                <input type="hidden" name="module_xtreampro_status" value="0"/>
+                <input type="checkbox" name="module_xtreampro_status" value="1" id="input-status" class="form-check-input"{% if module_xtreampro_status %} checked{% endif %}/>
+              </div>
+              <div class="form-text">{{ xp_help_status }}</div>
+            </div>
+          </div>
+          <div class="row mb-3">
+            <label for="input-api-url" class="col-sm-2 col-form-label">{{ xp_entry_api_url }}</label>
+            <div class="col-sm-10">
+              <input type="text" name="module_xtreampro_api_url" value="{{ module_xtreampro_api_url|e }}" placeholder="https://api.example.com" id="input-api-url" class="form-control"/>
+              <div id="error-api-url" class="invalid-feedback"></div>
+              <div class="form-text">{{ xp_help_api_url }}</div>
+            </div>
+          </div>
+          <div class="row mb-3">
+            <label for="input-api-key" class="col-sm-2 col-form-label">{{ xp_entry_api_key }}</label>
+            <div class="col-sm-10">
+              <input type="password" name="module_xtreampro_api_key" value="" placeholder="{% if has_key %}{{ xp_text_key_saved }}{% else %}{{ xp_text_key_none }}{% endif %}" id="input-api-key" class="form-control" autocomplete="new-password"/>
+              <div id="error-api-key" class="invalid-feedback"></div>
+              <div class="form-text">{{ xp_help_api_key }}</div>
+            </div>
+          </div>
+          <div class="row mb-3">
+            <label for="input-panel-url" class="col-sm-2 col-form-label">{{ xp_entry_panel_url }}</label>
+            <div class="col-sm-10">
+              <input type="text" name="module_xtreampro_panel_url" value="{{ module_xtreampro_panel_url|e }}" placeholder="https://panel.example.com" id="input-panel-url" class="form-control"/>
+              <div id="error-panel-url" class="invalid-feedback"></div>
+              <div class="form-text">{{ xp_help_panel_url }}</div>
+            </div>
+          </div>
+          <div class="row mb-3">
+            <label class="col-sm-2 col-form-label">{{ xp_entry_paid }}</label>
+            <div class="col-sm-10">
+              <div class="form-control p-0" style="height: 150px; overflow: auto;">
+                {% for order_status in order_statuses %}
+                  <div class="form-check">
+                    <input type="checkbox" name="module_xtreampro_paid_statuses[]" value="{{ order_status.order_status_id }}" id="input-paid-{{ order_status.order_status_id }}" class="form-check-input"{% if order_status.order_status_id in module_xtreampro_paid_statuses %} checked{% endif %}/>
+                    <label for="input-paid-{{ order_status.order_status_id }}" class="form-check-label">{{ order_status.name|e }}</label>
+                  </div>
+                {% endfor %}
+              </div>
+              <div class="form-text">{{ xp_help_paid }}</div>
+            </div>
+          </div>
+          <div class="row mb-3">
+            <label class="col-sm-2 col-form-label">{{ xp_entry_revoked }}</label>
+            <div class="col-sm-10">
+              <div class="form-control p-0" style="height: 150px; overflow: auto;">
+                {% for order_status in order_statuses %}
+                  <div class="form-check">
+                    <input type="checkbox" name="module_xtreampro_revoked_statuses[]" value="{{ order_status.order_status_id }}" id="input-revoked-{{ order_status.order_status_id }}" class="form-check-input"{% if order_status.order_status_id in module_xtreampro_revoked_statuses %} checked{% endif %}/>
+                    <label for="input-revoked-{{ order_status.order_status_id }}" class="form-check-label">{{ order_status.name|e }}</label>
+                  </div>
+                {% endfor %}
+              </div>
+              <div class="form-text">{{ xp_help_revoked }}</div>
+            </div>
+          </div>
+          <div class="row mb-3">
+            <div class="col-sm-10 offset-sm-2">
+              <button type="button" id="button-xtreampro-test" data-url="{{ test }}" class="btn btn-outline-primary"><i class="fa-solid fa-plug"></i> {{ xp_button_test }}</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript"><!--
+(function () {
+    var button = document.getElementById('button-xtreampro-test');
+    var form = document.getElementById('form-module');
+
+    // Same look as the alerts of OpenCart's own ajax forms.
+    function show(type, text) {
+        var box = document.getElementById('alert');
+        var alert = document.createElement('div');
+
+        alert.className = 'alert alert-' + type + ' alert-dismissible';
+        alert.textContent = text + ' ';
+
+        var close = document.createElement('button');
+
+        close.type = 'button';
+        close.className = 'btn-close';
+        close.setAttribute('data-bs-dismiss', 'alert');
+        alert.appendChild(close);
+
+        if (box) {
+            box.prepend(alert);
+        } else {
+            window.alert(text);
+        }
+    }
+
+    // Tests the values in the form (an empty key field uses the saved key).
+    button.addEventListener('click', function () {
+        var original = button.innerHTML;
+
+        button.disabled = true;
+        button.textContent = '{{ xp_text_working|e('js') }}';
+
+        fetch(button.dataset.url, {method: 'POST', body: new FormData(form)})
+            .then(function (response) { return response.json(); })
+            .then(function (json) {
+                if (json.success) {
+                    show('success', json.success);
+                } else if (typeof json.error === 'string') {
+                    show('danger', json.error);
+                }
+            })
+            .catch(function () { show('danger', '{{ xp_text_request_failed|e('js') }}'); })
+            .then(function () {
+                button.innerHTML = original;
+                button.disabled = false;
+            });
+    });
+})();
+//--></script>
+{{ footer }}

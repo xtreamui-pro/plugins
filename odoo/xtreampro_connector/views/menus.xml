@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_xtreampro_root" name="Xtream UI Pro" parent="sale.sale_menu_root" sequence="45"
+              groups="sales_team.group_sale_salesman"/>
+    <menuitem id="menu_xtreampro_lines" name="IPTV lines" parent="menu_xtreampro_root" sequence="10"
+              action="xtreampro_line_action"/>
+    <menuitem id="menu_xtreampro_resellers" name="Sub-resellers" parent="menu_xtreampro_root" sequence="20"
+              action="xtreampro_reseller_action"/>
+
+    <menuitem id="menu_xtreampro_config_packages" name="Xtream UI Pro Packages" parent="sale.menu_sale_config" sequence="90"
+              action="xtreampro_package_action" groups="sales_team.group_sale_manager"/>
+    <menuitem id="menu_xtreampro_config_settings" name="Xtream UI Pro Settings" parent="sale.menu_sale_config" sequence="91"
+              action="xtreampro_config_settings_action" groups="base.group_system"/>
+</odoo>

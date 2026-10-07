@@ -1,0 +1,10 @@
+{
+  "id": "__INVOICE__",
+  "number": "0042",
+  "status_id": "5",
+  "client_id": "Opnel5aKBz",
+  "amount": 59.98,
+  "line_items": [
+    { "product_key": "e2e-line", "cost": 29.99, "quantity": 2 }
+  ]
+}

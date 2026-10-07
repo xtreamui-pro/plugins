@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <!-- The invoice is paid: claim one unit per invoiced quantity (database only). -->
+    <event name="sales_order_invoice_pay">
+        <observer name="xtreampro_connector_invoice_pay" instance="XtreamPro\Connector\Observer\InvoicePay"/>
+    </event>
+    <!-- The paid invoice is committed: provision (panel calls happen outside the transaction). -->
+    <event name="sales_order_invoice_save_commit_after">
+        <observer name="xtreampro_connector_invoice_saved" instance="XtreamPro\Connector\Observer\InvoiceSaved"/>
+    </event>
+    <!-- Refund: revoke the refunded units. -->
+    <event name="sales_order_creditmemo_save_commit_after">
+        <observer name="xtreampro_connector_creditmemo_saved" instance="XtreamPro\Connector\Observer\CreditmemoSaved"/>
+    </event>
+    <!-- Cancel: revoke the units of a cancelled order. -->
+    <event name="order_cancel_after">
+        <observer name="xtreampro_connector_order_canceled" instance="XtreamPro\Connector\Observer\OrderCanceled"/>
+    </event>
+</config>

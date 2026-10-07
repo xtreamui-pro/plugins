@@ -1,0 +1,25 @@
+{% set d = admin.servicextreampro_details({'order_id': order.id}) %}
+<div class="card-body">
+    <div class="mb-3">
+        <h3 class="card-title mb-1">{{ 'Xtream UI Pro'|trans }}</h3>
+        <p class="text-secondary mb-0">{{ 'Live data from the panel. Suspend, unsuspend, renew and cancel on the order act on the panel too.'|trans }}</p>
+    </div>
+    {% if d.error %}
+        <div class="alert alert-warning">{{ d.error }}</div>
+    {% endif %}
+    <table class="table table-bordered table-sm">
+        <tbody>
+        <tr><td>{{ 'Type'|trans }}</td><td>{% if service.service_type == 'reseller' %}{{ 'Sub-reseller account'|trans }}{% else %}{{ 'IPTV line'|trans }}{% endif %}</td></tr>
+        {% if service.service_type == 'reseller' %}
+            <tr><td>{{ 'Account ID'|trans }}</td><td><code>{{ service.user_id }}</code></td></tr>
+            <tr><td>{{ 'Credit balance'|trans }}</td><td>{{ d.credits|default('-') }}</td></tr>
+        {% else %}
+            <tr><td>{{ 'Line ID'|trans }}</td><td>{{ service.line_id }}</td></tr>
+            <tr><td>{{ 'Expires'|trans }}</td><td>{{ d.expiry|default('-') }}</td></tr>
+            <tr><td>{{ 'Max connections'|trans }}</td><td>{{ d.max_connections|default('-') }}</td></tr>
+        {% endif %}
+        <tr><td>{{ 'Username'|trans }}</td><td><code>{{ d.username|default(service.username) }}</code></td></tr>
+        <tr><td>{{ 'Status in the panel'|trans }}</td><td>{{ d.status|default('-') }}</td></tr>
+        </tbody>
+    </table>
+</div>

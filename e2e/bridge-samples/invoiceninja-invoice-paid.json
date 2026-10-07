@@ -1,0 +1,33 @@
+{
+  "id": "__INVOICE__",
+  "number": "0042",
+  "status_id": "4",
+  "client_id": "Opnel5aKBz",
+  "amount": 59.98,
+  "balance": 0,
+  "paid_to_date": 59.98,
+  "date": "2026-10-04",
+  "line_items": [
+    {
+      "product_key": "e2e-line",
+      "notes": "IPTV 12 months",
+      "cost": 29.99,
+      "quantity": 2,
+      "type_id": "1"
+    },
+    {
+      "product_key": "",
+      "notes": "A free-text line",
+      "cost": 5,
+      "quantity": 1,
+      "type_id": "1"
+    }
+  ],
+  "client": {
+    "id": "Opnel5aKBz",
+    "name": "Berg Media",
+    "contacts": [
+      { "first_name": "Ann", "last_name": "Berg", "email": "__EMAIL__", "is_primary": true }
+    ]
+  }
+}

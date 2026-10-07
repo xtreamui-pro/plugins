@@ -1,0 +1,37 @@
+{
+    "version": "1.1.0",
+    "name": "Xtreampro.name",
+    "description": "Xtreampro.description",
+    "authors": [
+        {
+            "name": "Xtream UI Pro",
+            "url": "https://github.com/"
+        }
+    ],
+    "package": {
+        "name_key": "xtreampro_username"
+    },
+    "service": {
+        "name_key": "xtreampro_username"
+    },
+    "module": {
+        "row": "Xtreampro.module_row",
+        "rows": "Xtreampro.module_row_plural",
+        "group": "Xtreampro.module_group",
+        "row_key": "server_name"
+    },
+    "email_tags": {
+        "module": [
+            "host_name",
+            "port"
+        ],
+        "package": [
+            "service_type",
+            "package_id"
+        ],
+        "service": [
+            "xtreampro_username",
+            "xtreampro_password"
+        ]
+    }
+}

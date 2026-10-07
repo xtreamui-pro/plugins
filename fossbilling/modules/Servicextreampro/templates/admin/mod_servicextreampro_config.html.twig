@@ -1,0 +1,62 @@
+{% set status = admin.servicextreampro_status %}
+{% set cfg = product.config|default({}) %}
+<div class="card-body">
+    <div class="mb-3">
+        <h3 class="card-title mb-1">{{ 'Xtream UI Pro'|trans }}</h3>
+        <p class="text-secondary mb-0">{{ 'What one order of this product sells. The values are copied to each new order, so changing them later does not touch orders that already exist.'|trans }}</p>
+    </div>
+
+    {% if not status.ok %}
+        <div class="alert alert-warning">
+            {% if status.error %}{{ status.error }}{% else %}{{ 'The panel is not configured yet.'|trans }}{% endif %}
+            <a href="{{ 'servicextreampro'|url }}">{{ 'Open the Xtream UI Pro settings'|trans }}</a>
+        </div>
+    {% endif %}
+
+    <form method="post" action="{{ 'product/update_config'|api_url }}" {{ fb_api_form({reload: true, message: 'Configuration saved'|trans}) }}>
+        <div class="row g-3">
+            <div class="col-md-4">
+                <label class="form-label">{{ 'Sells'|trans }}</label>
+                <select class="form-select" name="config[service_type]">
+                    <option value="line" {% if cfg.service_type|default('line') != 'reseller' %}selected{% endif %}>{{ 'IPTV line'|trans }}</option>
+                    <option value="reseller" {% if cfg.service_type|default('line') == 'reseller' %}selected{% endif %}>{{ 'Sub-reseller account'|trans }}</option>
+                </select>
+            </div>
+            <div class="col-md-4">
+                <label class="form-label">{{ 'Package (IPTV line)'|trans }}</label>
+                <select class="form-select" name="config[package_id]">
+                    <option value="0">-</option>
+                    {% for pkg in status.packages %}
+                        <option value="{{ pkg.id }}" {% if cfg.package_id|default(0) == pkg.id %}selected{% endif %}>{{ pkg.name }} ({{ pkg.detail }})</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-md-2">
+                <label class="form-label">{{ 'Trial line'|trans }}</label>
+                <select class="form-select" name="config[trial]">
+                    <option value="0" {% if cfg.trial|default('0') != '1' %}selected{% endif %}>{{ 'No'|trans }}</option>
+                    <option value="1" {% if cfg.trial|default('0') == '1' %}selected{% endif %}>{{ 'Yes'|trans }}</option>
+                </select>
+            </div>
+            <div class="col-md-4">
+                <label class="form-label">{{ 'When the order is cancelled (IPTV line)'|trans }}</label>
+                <select class="form-select" name="config[delete_on_cancel]">
+                    <option value="0" {% if cfg.delete_on_cancel|default('0') != '1' %}selected{% endif %}>{{ 'Only disable the line (default, it can be enabled again)'|trans }}</option>
+                    <option value="1" {% if cfg.delete_on_cancel|default('0') == '1' %}selected{% endif %}>{{ 'Delete the line permanently (final on the panel, nothing can be brought back)'|trans }}</option>
+                </select>
+            </div>
+            <div class="col-md-4">
+                <label class="form-label">{{ 'Credits on creation (sub-reseller)'|trans }}</label>
+                <input class="form-control" type="number" min="0" name="config[credits_on_creation]" value="{{ cfg.credits_on_creation|default('0') }}">
+            </div>
+            <div class="col-md-4">
+                <label class="form-label">{{ 'Credits per renewal (sub-reseller)'|trans }}</label>
+                <input class="form-control" type="number" min="0" name="config[credits_per_renewal]" value="{{ cfg.credits_per_renewal|default('0') }}">
+            </div>
+        </div>
+        <input type="hidden" name="id" value="{{ product.id }}">
+        <div class="d-flex justify-content-end mt-4">
+            <button class="btn btn-primary" type="submit">{{ 'Update'|trans }}</button>
+        </div>
+    </form>
+</div>

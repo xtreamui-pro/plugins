@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="xtreampro_package_view_tree" model="ir.ui.view">
+        <field name="name">xtreampro.package.tree</field>
+        <field name="model">xtreampro.package</field>
+        <field name="arch" type="xml">
+            <tree create="false" delete="false">
+                <header>
+                    <button name="action_sync_packages" type="object" string="Sync packages" display="always"
+                            groups="sales_team.group_sale_manager"/>
+                </header>
+                <field name="name"/>
+                <field name="panel_id"/>
+                <field name="is_trial"/>
+                <field name="is_official"/>
+                <field name="duration"/>
+                <field name="duration_in"/>
+                <field name="max_connections"/>
+                <field name="sells_line" optional="show"/>
+                <field name="official_credits" optional="show"/>
+                <field name="trial_credits" optional="hide"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="xtreampro_package_view_form" model="ir.ui.view">
+        <field name="name">xtreampro.package.form</field>
+        <field name="model">xtreampro.package</field>
+        <field name="arch" type="xml">
+            <form create="false" edit="false" delete="false">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="panel_id"/>
+                            <field name="max_connections"/>
+                            <field name="sells_line"/>
+                            <field name="active"/>
+                        </group>
+                        <group string="Official">
+                            <field name="is_official"/>
+                            <field name="duration"/>
+                            <field name="duration_in"/>
+                            <field name="official_credits"/>
+                        </group>
+                        <group string="Trial">
+                            <field name="is_trial"/>
+                            <field name="trial_duration"/>
+                            <field name="trial_duration_in"/>
+                            <field name="trial_credits"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="xtreampro_package_view_search" model="ir.ui.view">
+        <field name="name">xtreampro.package.search</field>
+        <field name="model">xtreampro.package</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="panel_id"/>
+                <filter name="trial" string="Trial available" domain="[('is_trial', '=', True)]"/>
+                <filter name="official" string="Official available" domain="[('is_official', '=', True)]"/>
+                <separator/>
+                <filter name="archived" string="Archived (removed from panel)" domain="[('active', '=', False)]"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="xtreampro_package_action" model="ir.actions.act_window">
+        <field name="name">Xtream UI Pro Packages</field>
+        <field name="res_model">xtreampro.package</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">No packages yet</p>
+            <p>Press "Sync packages" to import the packages of your reseller account from the panel.</p>
+        </field>
+    </record>
+</odoo>

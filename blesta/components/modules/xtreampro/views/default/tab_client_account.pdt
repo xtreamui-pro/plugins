@@ -1,0 +1,60 @@
+<?php /** @var View $this **/ ?>
+
+<?php if (!empty($error)) { ?>
+<p class="text-danger"><?php echo $this->Html->safe($this->_('Xtreampro.service_info.error', true, $error)); ?></p>
+<?php } elseif ($info === null) { ?>
+<p><?php $this->_('Xtreampro.tab_client_account.unavailable'); ?></p>
+<?php } else { ?>
+<h4><?php $this->_($type === 'reseller' ? 'Xtreampro.tab_client_account.title_reseller' : 'Xtreampro.tab_client_account.title_line'); ?></h4>
+<table class="table">
+    <tbody>
+        <tr>
+            <th><?php $this->_('Xtreampro.service_info.username'); ?></th>
+            <td><?php echo $this->Html->safe(isset($info['username']) ? $info['username'] : (isset($service_fields->xtreampro_username) ? $service_fields->xtreampro_username : '')); ?></td>
+        </tr>
+        <tr>
+            <th><?php $this->_('Xtreampro.service_info.password'); ?></th>
+            <td><?php echo $this->Html->safe(isset($service_fields->xtreampro_password) ? $service_fields->xtreampro_password : ''); ?></td>
+        </tr>
+        <tr>
+            <th><?php $this->_('Xtreampro.service_info.status'); ?></th>
+            <td><?php echo isset($info['status']) ? $this->Html->safe($info['status']) : ''; ?></td>
+        </tr>
+        <?php if ($type === 'reseller') { ?>
+        <tr>
+            <th><?php $this->_('Xtreampro.service_info.credits'); ?></th>
+            <td><?php echo isset($info['credits']) ? $this->Html->safe($info['credits']) : ''; ?></td>
+        </tr>
+        <?php } else { ?>
+        <tr>
+            <th><?php $this->_('Xtreampro.service_info.expiry'); ?></th>
+            <td><?php echo $this->Html->safe($expiry); ?></td>
+        </tr>
+        <tr>
+            <th><?php $this->_('Xtreampro.service_info.max_connections'); ?></th>
+            <td><?php echo isset($info['max_connections']) ? $this->Html->safe($info['max_connections']) : ''; ?></td>
+        </tr>
+        <?php
+        $links = (isset($info['links']) && is_array($info['links'])) ? $info['links'] : [];
+        $rows = [
+            'server' => 'Xtreampro.tab_client_account.server_url',
+            'm3u' => 'Xtreampro.tab_client_account.playlist',
+            'm3u_hls' => 'Xtreampro.tab_client_account.playlist_hls',
+            'xmltv' => 'Xtreampro.tab_client_account.epg',
+            'player_api' => 'Xtreampro.tab_client_account.player_api',
+            'web_player' => 'Xtreampro.tab_client_account.web_player',
+        ];
+        foreach ($rows as $key => $label) {
+            if (empty($links[$key]) || !is_string($links[$key])) {
+                continue;
+            } ?>
+        <tr>
+            <th><?php $this->_($label); ?></th>
+            <td><input type="text" class="form-control" readonly value="<?php echo $this->Html->safe($links[$key]); ?>" onclick="this.select();" /></td>
+        </tr>
+        <?php
+        } ?>
+        <?php } ?>
+    </tbody>
+</table>
+<?php } ?>

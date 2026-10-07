@@ -1,0 +1,9 @@
+{
+  "event": "__TYPE__",
+  "id": "__EVENT__",
+  "order_id": "__ORDER__",
+  "item_id": "1",
+  "quantity": __QTY__,
+  "sku": "__SKU__",
+  "customer": { "email": "__EMAIL__", "name": "Gina Generic" }
+}

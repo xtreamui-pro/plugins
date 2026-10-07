@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="mail_template_xtreampro_credentials" model="mail.template">
+            <field name="name">Xtream UI Pro: IPTV credentials</field>
+            <field name="model_id" ref="model_xtreampro_line"/>
+            <field name="subject">Your IPTV subscription details</field>
+            <field name="email_from">{{ (object.company_id.partner_id.email_formatted or user.email_formatted) }}</field>
+            <field name="email_to">{{ object.partner_id.email }}</field>
+            <field name="auto_delete" eval="True"/>
+            <field name="body_html" type="html">
+<div style="margin: 0; padding: 0; font-size: 13px;">
+    <p>Hello <t t-out="object.partner_id.name or ''">Customer</t>,</p>
+    <p>Your IPTV subscription is ready. Use these details in your IPTV app or player:</p>
+    <ul>
+        <li>Server: <t t-out="object.server_url or ''">https://api.example.com</t></li>
+        <li>Username: <strong t-out="object.username or ''">username</strong></li>
+        <li>Password: <strong t-out="object.password or ''">password</strong></li>
+        <t t-if="object.expiry">
+            <li>Valid until (UTC): <t t-out="object.expiry">date</t></li>
+        </t>
+        <li>Simultaneous connections: <t t-out="object.max_connections or 1">1</t></li>
+    </ul>
+    <t t-if="object.playlist_url">
+        <p>Playlist link (M3U):<br/><t t-out="object.playlist_url">playlist</t></p>
+    </t>
+    <t t-if="object.player_url">
+        <p>Web player: <t t-out="object.player_url">player</t></p>
+    </t>
+    <p>Please keep these details private.</p>
+</div>
+            </field>
+        </record>
+
+        <record id="mail_template_xtreampro_reseller_credentials" model="mail.template">
+            <field name="name">Xtream UI Pro: sub-reseller credentials</field>
+            <field name="model_id" ref="model_xtreampro_reseller"/>
+            <field name="subject">Your reseller account details</field>
+            <field name="email_from">{{ (object.company_id.partner_id.email_formatted or user.email_formatted) }}</field>
+            <field name="email_to">{{ object.partner_id.email }}</field>
+            <field name="auto_delete" eval="True"/>
+            <field name="body_html" type="html">
+<div style="margin: 0; padding: 0; font-size: 13px;">
+    <p>Hello <t t-out="object.partner_id.name or ''">Customer</t>,</p>
+    <p>Your reseller account is ready. Use these details to sign in to the reseller panel:</p>
+    <ul>
+        <li>Username: <strong t-out="object.username or ''">username</strong></li>
+        <li>Password: <strong t-out="object.password or ''">password</strong></li>
+        <li>Credits: <t t-out="object.credits or 0">0</t></li>
+        <t t-if="object.login_url">
+            <li>Sign in: <t t-out="object.login_url">https://panel.example.com/login</t></li>
+        </t>
+    </ul>
+    <p>Please keep these details private and change the password after your first sign-in.</p>
+</div>
+            </field>
+        </record>
+    </data>
+</odoo>

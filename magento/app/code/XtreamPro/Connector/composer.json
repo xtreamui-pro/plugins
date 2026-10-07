@@ -1,0 +1,27 @@
+{
+    "name": "xtreampro/module-connector",
+    "description": "Sell Xtream UI Pro IPTV lines and sub-reseller accounts from Magento 2 through the panel's Reseller API.",
+    "type": "magento2-module",
+    "version": "1.1.0",
+    "license": "proprietary",
+    "require": {
+        "php": ">=8.1",
+        "ext-curl": "*",
+        "ext-json": "*",
+        "magento/framework": ">=103.0.0",
+        "magento/module-backend": "*",
+        "magento/module-catalog": "*",
+        "magento/module-config": "*",
+        "magento/module-customer": "*",
+        "magento/module-eav": "*",
+        "magento/module-sales": "*"
+    },
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "XtreamPro\\Connector\\": ""
+        }
+    }
+}

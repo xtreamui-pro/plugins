@@ -1,0 +1,59 @@
+<div id="tab-xtreampro" class="tab-pane">
+  <p class="text-muted">{{ xp_text_order_help }}</p>
+  <div id="xtreampro-units" data-url="{{ units_url }}">{{ units_html }}</div>
+  <div class="text-end">
+    <button type="button" id="button-xtreampro-provision" data-url="{{ provision_url }}" data-order-id="{{ order_id }}" class="btn btn-primary"><i class="fa-solid fa-rotate"></i> {{ xp_button_provision }}</button>
+  </div>
+  <script type="text/javascript"><!--
+  (function () {
+      var button = document.getElementById('button-xtreampro-provision');
+      var units = document.getElementById('xtreampro-units');
+
+      // Same look as the alerts of OpenCart's own ajax forms.
+      function show(type, text) {
+          var box = document.getElementById('alert');
+          var alert = document.createElement('div');
+
+          alert.className = 'alert alert-' + type + ' alert-dismissible';
+          alert.textContent = text + ' ';
+
+          var close = document.createElement('button');
+
+          close.type = 'button';
+          close.className = 'btn-close';
+          close.setAttribute('data-bs-dismiss', 'alert');
+          alert.appendChild(close);
+
+          if (box) {
+              box.prepend(alert);
+          } else {
+              window.alert(text);
+          }
+      }
+
+      button.addEventListener('click', function () {
+          var body = new FormData();
+
+          body.append('order_id', button.dataset.orderId);
+
+          button.disabled = true;
+
+          fetch(button.dataset.url, {method: 'POST', body: body})
+              .then(function (response) { return response.json(); })
+              .then(function (json) {
+                  if (json.success) {
+                      show('success', json.success);
+                  } else if (typeof json.error === 'string') {
+                      show('danger', json.error);
+                  } else if (json.error && json.error.warning) {
+                      show('danger', json.error.warning);
+                  }
+
+                  return fetch(units.dataset.url).then(function (response) { return response.text(); }).then(function (html) { units.innerHTML = html; });
+              })
+              .catch(function () { show('danger', '{{ xp_text_request_failed|e('js') }}'); })
+              .then(function () { button.disabled = false; });
+      });
+  })();
+  //--></script>
+</div>

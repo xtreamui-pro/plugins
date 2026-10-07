@@ -1,0 +1,242 @@
+{
+ "actions": [],
+ "creation": "2026-10-04 12:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "customer",
+  "username",
+  "password",
+  "status",
+  "expiry",
+  "max_connections",
+  "column_break_1",
+  "panel_line_id",
+  "package",
+  "is_trial",
+  "last_sync",
+  "last_error",
+  "order_section",
+  "sales_invoice",
+  "item_code",
+  "invoice_item",
+  "unit_index",
+  "column_break_2",
+  "generation",
+  "request_id",
+  "last_renew_request",
+  "credentials_sent_on"
+ ],
+ "fields": [
+  {
+   "fieldname": "customer",
+   "fieldtype": "Link",
+   "label": "Customer",
+   "options": "Customer",
+   "read_only": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "username",
+   "fieldtype": "Data",
+   "label": "Username",
+   "read_only": 1,
+   "in_list_view": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "password",
+   "fieldtype": "Password",
+   "label": "Password",
+   "read_only": 1,
+   "permlevel": 1
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Draft\nActive\nExpired\nSuspended\nBanned\nError\nTerminated",
+   "default": "Draft",
+   "read_only": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "expiry",
+   "fieldtype": "Datetime",
+   "label": "Expires (UTC)",
+   "read_only": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "max_connections",
+   "fieldtype": "Int",
+   "label": "Max connections",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "panel_line_id",
+   "fieldtype": "Int",
+   "label": "Panel line ID",
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "package",
+   "fieldtype": "Link",
+   "label": "Package",
+   "options": "Xtream UI Pro Package",
+   "read_only": 1
+  },
+  {
+   "fieldname": "is_trial",
+   "fieldtype": "Check",
+   "label": "Trial",
+   "read_only": 1
+  },
+  {
+   "fieldname": "last_sync",
+   "fieldtype": "Datetime",
+   "label": "Last sync",
+   "read_only": 1
+  },
+  {
+   "fieldname": "last_error",
+   "fieldtype": "Small Text",
+   "label": "Last error",
+   "read_only": 1
+  },
+  {
+   "fieldname": "order_section",
+   "fieldtype": "Section Break",
+   "label": "Sale"
+  },
+  {
+   "fieldname": "sales_invoice",
+   "fieldtype": "Link",
+   "label": "Sales Invoice",
+   "options": "Sales Invoice",
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "item_code",
+   "fieldtype": "Link",
+   "label": "Item",
+   "options": "Item",
+   "read_only": 1
+  },
+  {
+   "fieldname": "invoice_item",
+   "fieldtype": "Data",
+   "label": "Invoice row",
+   "read_only": 1,
+   "description": "Name of the invoice row that sold this line."
+  },
+  {
+   "fieldname": "unit_index",
+   "fieldtype": "Int",
+   "label": "Unit #",
+   "read_only": 1,
+   "description": "Which unit of the sold quantity this line is."
+  },
+  {
+   "fieldname": "column_break_2",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "generation",
+   "fieldtype": "Int",
+   "label": "Generation",
+   "read_only": 1,
+   "default": "0",
+   "description": "Counts terminations. It is part of the request id, so creating a terminated line again sells a new one."
+  },
+  {
+   "fieldname": "request_id",
+   "fieldtype": "Data",
+   "label": "Request id",
+   "read_only": 1,
+   "unique": 1,
+   "description": "What makes the creation idempotent on the panel."
+  },
+  {
+   "fieldname": "last_renew_request",
+   "fieldtype": "Data",
+   "label": "Last renewal request",
+   "read_only": 1
+  },
+  {
+   "fieldname": "credentials_sent_on",
+   "fieldtype": "Datetime",
+   "label": "Credentials e-mailed",
+   "read_only": 1
+  }
+ ],
+ "index_web_pages_for_search": 0,
+ "links": [],
+ "modified": "2026-10-04 12:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Xtream UI Pro",
+ "name": "Xtream UI Pro Line",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "role": "Sales Manager",
+   "permlevel": 0,
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 1,
+   "report": 1,
+   "export": 1,
+   "share": 1,
+   "print": 1,
+   "email": 1
+  },
+  {
+   "role": "Sales Manager",
+   "permlevel": 1,
+   "read": 1
+  },
+  {
+   "role": "Sales User",
+   "permlevel": 0,
+   "read": 1,
+   "report": 1,
+   "export": 1
+  },
+  {
+   "role": "System Manager",
+   "permlevel": 0,
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 1,
+   "report": 1,
+   "export": 1,
+   "share": 1,
+   "print": 1,
+   "email": 1
+  },
+  {
+   "role": "System Manager",
+   "permlevel": 1,
+   "read": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 0,
+ "autoname": "format:XPL-{#####}",
+ "naming_rule": "Expression",
+ "title_field": "username",
+ "search_fields": "username,customer",
+ "in_create": 1
+}

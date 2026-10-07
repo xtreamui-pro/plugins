@@ -1,0 +1,30 @@
+<?php
+/** @var \XtreamPro\Connector\Block\Adminhtml\System\Config\TestConnection $block */
+/** @var \Magento\Framework\Escaper $escaper */
+?>
+<button type="button" id="xtreampro-test-connection" class="action-default scalable">
+    <span><?= $escaper->escapeHtml(__('Test connection')) ?></span>
+</button>
+<span id="xtreampro-test-result" role="status"></span>
+<p class="note"><span><?= $escaper->escapeHtml(__('Uses the values typed above, even if they are not saved yet.')) ?></span></p>
+<script type="text/javascript">
+require(['jquery'], function ($) {
+    $('#xtreampro-test-connection').on('click', function () {
+        var result = $('#xtreampro-test-result').css('color', '').text('<?= $escaper->escapeJs(__('Testing...')) ?>');
+        $.ajax({
+            url: '<?= $escaper->escapeJs($block->getAjaxUrl()) ?>',
+            type: 'POST',
+            dataType: 'json',
+            data: {
+                form_key: window.FORM_KEY,
+                api_url: $('#xtreampro_connector_api_api_url').val(),
+                api_key: $('#xtreampro_connector_api_api_key').val()
+            }
+        }).done(function (response) {
+            result.css('color', response.success ? 'green' : 'red').text(response.message);
+        }).fail(function () {
+            result.css('color', 'red').text('<?= $escaper->escapeJs(__('The test could not be run (is your admin session still open?).')) ?>');
+        });
+    });
+});
+</script>

@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <!-- Own log file: var/log/xtreampro.log (no API key, no passwords). -->
+    <virtualType name="XtreamPro\Connector\Logger\Handler" type="Magento\Framework\Logger\Handler\Base">
+        <arguments>
+            <argument name="fileName" xsi:type="string">/var/log/xtreampro.log</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="XtreamPro\Connector\Logger\Logger" type="Magento\Framework\Logger\Monolog">
+        <arguments>
+            <argument name="name" xsi:type="string">xtreampro</argument>
+            <argument name="handlers" xsi:type="array">
+                <item name="system" xsi:type="object">XtreamPro\Connector\Logger\Handler</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <type name="XtreamPro\Connector\Model\Gateway">
+        <arguments>
+            <argument name="logger" xsi:type="object">XtreamPro\Connector\Logger\Logger</argument>
+        </arguments>
+    </type>
+    <type name="XtreamPro\Connector\Model\OrderService">
+        <arguments>
+            <argument name="logger" xsi:type="object">XtreamPro\Connector\Logger\Logger</argument>
+        </arguments>
+    </type>
+</config>

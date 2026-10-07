@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="xtreampro_line_package_wizard_view_form" model="ir.ui.view">
+        <field name="name">xtreampro.line.package.wizard.form</field>
+        <field name="model">xtreampro.line.package.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="line_id"/>
+                    <field name="current_package_id"/>
+                    <field name="package_id" options="{'no_create': True, 'no_open': True}"/>
+                    <field name="price"/>
+                </group>
+                <group string="What the panel will do">
+                    <field name="compat_note" nolabel="1" colspan="2"/>
+                </group>
+                <p class="text-muted">
+                    The line takes the new package and the panel charges that package's official price to your
+                    reseller credits. The time left on the line is kept when the two packages are compatible,
+                    otherwise the new period starts now (the panel decides; its answer is shown above).
+                </p>
+                <footer>
+                    <button name="action_apply" type="object" string="Change package" class="btn-primary"
+                            data-hotkey="q"
+                            confirm="This charges credits to the reseller account on the panel. Continue?"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel" data-hotkey="x"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

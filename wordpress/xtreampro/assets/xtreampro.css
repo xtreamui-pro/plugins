@@ -1,0 +1,83 @@
+.xtreampro-packages,
+.xtreampro-lines {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+	gap: 16px;
+	margin: 16px 0;
+}
+.xtreampro-lines {
+	grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+}
+.xtreampro-package,
+.xtreampro-line {
+	border: 1px solid #dcdcde;
+	border-radius: 8px;
+	padding: 16px;
+	background: #fff;
+	box-sizing: border-box;
+	min-width: 0;
+}
+.xtreampro-package-name,
+.xtreampro-line-title {
+	margin: 0 0 8px;
+	font-size: 1.2em;
+}
+.xtreampro-package-features {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+.xtreampro-package-features li {
+	padding: 4px 0;
+	border-top: 1px solid #f0f0f1;
+}
+.xtreampro-details {
+	margin: 0;
+	display: grid;
+	grid-template-columns: max-content 1fr;
+	gap: 6px 12px;
+}
+.xtreampro-details dt {
+	font-weight: 600;
+}
+.xtreampro-details dd {
+	margin: 0;
+	overflow-wrap: anywhere;
+}
+.xtreampro-status {
+	display: inline-block;
+	padding: 1px 8px;
+	border-radius: 10px;
+	background: #f0f0f1;
+	font-size: 0.9em;
+}
+.xtreampro-status-active {
+	background: #d1f0d8;
+	color: #0a5c1f;
+}
+.xtreampro-status-expired,
+.xtreampro-status-disabled,
+.xtreampro-status-banned {
+	background: #f9d6d6;
+	color: #8a1f1f;
+}
+.xtreampro-toggle {
+	cursor: pointer;
+	font-size: 0.85em;
+}
+.xtreampro-notice {
+	padding: 10px 14px;
+	border-left: 4px solid #dba617;
+	background: #fcf9e8;
+	margin: 12px 0;
+}
+.xtreampro-credentials {
+	margin: 24px 0;
+}
+.xtreampro-credentials table {
+	width: 100%;
+}
+.xtreampro-reseller {
+	max-width: 420px;
+	margin: 16px 0;
+}

@@ -1,0 +1,25 @@
+{
+  "webhook_event_id": "__EVENT__",
+  "event_datetime": "2026-10-04 10:15:30",
+  "version": "V1",
+  "hook_category": "contract_product",
+  "hook_code": "contract_product_activated_hook",
+  "hook_log_id": "d9465824-5730-9190-97eb-d128ed6e3d70",
+  "object_type": "contract_product",
+  "object_id": "__CONTRACT__",
+  "object": {
+    "id": "__CONTRACT__",
+    "product_id": "__PRODUCT__",
+    "quantity": 1,
+    "status": "active",
+    "client": {
+      "id": "506382d5-e903-1365-6d6a-5124867794de",
+      "email": "__EMAIL__",
+      "firstname": "Harry",
+      "lastname": "Lewis",
+      "fullname": "Harry Lewis"
+    }
+  },
+  "actor_type": "user",
+  "brand_id": "905d39e2-d364-0717-d0a4-12e598467803"
+}

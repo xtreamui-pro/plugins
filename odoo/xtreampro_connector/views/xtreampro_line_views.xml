@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="xtreampro_line_view_tree" model="ir.ui.view">
+        <field name="name">xtreampro.line.tree</field>
+        <field name="model">xtreampro.line</field>
+        <field name="arch" type="xml">
+            <tree create="false" decoration-danger="state == 'error'"
+                  decoration-warning="state in ('expired', 'disabled', 'banned')">
+                <field name="username"/>
+                <field name="partner_id"/>
+                <field name="sale_order_id"/>
+                <field name="package_id"/>
+                <field name="state" widget="badge"/>
+                <field name="expiry"/>
+                <field name="max_connections" optional="show"/>
+                <field name="is_trial" optional="hide"/>
+                <field name="last_sync" optional="hide"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="xtreampro_line_view_form" model="ir.ui.view">
+        <field name="name">xtreampro.line.form</field>
+        <field name="model">xtreampro.line</field>
+        <field name="arch" type="xml">
+            <form create="false">
+                <header>
+                    <button name="action_retry" type="object" string="Retry" class="oe_highlight"
+                            invisible="state != 'error'" groups="sales_team.group_sale_manager"/>
+                    <button name="action_send_credentials" type="object" string="Send credentials"
+                            invisible="state not in ('active', 'expired')"/>
+                    <button name="action_renew" type="object" string="Renew"
+                            invisible="not panel_line_id or state not in ('active', 'expired')"
+                            confirm="Renewing charges credits to the reseller account on the panel. Continue?"
+                            groups="sales_team.group_sale_manager"/>
+                    <button name="action_suspend" type="object" string="Suspend"
+                            invisible="state != 'active'" groups="sales_team.group_sale_manager"/>
+                    <button name="action_unsuspend" type="object" string="Unsuspend"
+                            invisible="state != 'disabled' or not panel_line_id" groups="sales_team.group_sale_manager"/>
+                    <button name="action_change_package" type="object" string="Change package"
+                            invisible="not panel_line_id or state not in ('active', 'expired', 'disabled') or not active"
+                            groups="sales_team.group_sale_manager"/>
+                    <button name="action_refresh" type="object" string="Refresh status"
+                            invisible="not panel_line_id" groups="sales_team.group_sale_manager"/>
+                    <button name="action_terminate" type="object" string="Terminate on panel"
+                            invisible="not active"
+                            confirm="This deletes the line on the panel and cannot be undone. Continue?"
+                            groups="sales_team.group_sale_manager"/>
+                    <field name="state" widget="statusbar" statusbar_visible="active,expired,disabled"/>
+                </header>
+                <sheet>
+                    <div class="alert alert-danger" role="alert" invisible="state != 'error' or not last_error">
+                        <field name="last_error" readonly="1"/>
+                    </div>
+                    <div class="oe_title">
+                        <h1><field name="name"/></h1>
+                    </div>
+                    <group>
+                        <group string="Customer">
+                            <field name="partner_id"/>
+                            <field name="sale_order_id"/>
+                            <field name="sale_line_id"/>
+                            <field name="package_id"/>
+                            <field name="is_trial"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                            <field name="active" invisible="1"/>
+                        </group>
+                        <group string="Subscription">
+                            <field name="username"/>
+                            <field name="password"/>
+                            <field name="expiry"/>
+                            <field name="max_connections"/>
+                            <field name="last_sync"/>
+                            <field name="panel_line_id"/>
+                        </group>
+                    </group>
+                    <group string="Links">
+                        <field name="server_url" widget="url"/>
+                        <field name="player_url" widget="url"/>
+                        <field name="playlist_url" widget="CopyClipboardChar"/>
+                        <field name="hls_url" widget="CopyClipboardChar" invisible="not hls_url"/>
+                        <field name="guide_url" widget="CopyClipboardChar" invisible="not guide_url"/>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="xtreampro_line_view_search" model="ir.ui.view">
+        <field name="name">xtreampro.line.search</field>
+        <field name="model">xtreampro.line</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="username"/>
+                <field name="partner_id"/>
+                <field name="sale_order_id"/>
+                <field name="package_id"/>
+                <filter name="active_lines" string="Active" domain="[('state', '=', 'active')]"/>
+                <filter name="expired" string="Expired" domain="[('state', '=', 'expired')]"/>
+                <filter name="suspended" string="Suspended" domain="[('state', '=', 'disabled')]"/>
+                <filter name="errors" string="Errors" domain="[('state', '=', 'error')]"/>
+                <separator/>
+                <filter name="archived" string="Archived" domain="[('active', '=', False)]"/>
+                <group expand="0" string="Group By">
+                    <filter name="group_state" string="Status" context="{'group_by': 'state'}"/>
+                    <filter name="group_partner" string="Customer" context="{'group_by': 'partner_id'}"/>
+                    <filter name="group_package" string="Package" context="{'group_by': 'package_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="xtreampro_line_action" model="ir.actions.act_window">
+        <field name="name">IPTV lines</field>
+        <field name="res_model">xtreampro.line</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">No IPTV lines yet</p>
+            <p>Lines are created when you confirm a sale order containing a product linked to a panel package.</p>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <xtreampro_connector>
+            <api>
+                <api_url></api_url>
+                <api_key></api_key>
+                <panel_url></panel_url>
+            </api>
+        </xtreampro_connector>
+    </default>
+</config>

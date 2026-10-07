@@ -1,0 +1,51 @@
+{
+    "xtreampro_connector_unit": {
+        "column": {
+            "unit_id": true,
+            "order_id": true,
+            "order_item_id": true,
+            "unit": true,
+            "customer_id": true,
+            "kind": true,
+            "package_id": true,
+            "trial": true,
+            "credits": true,
+            "credits_given": true,
+            "credits_taken_back": true,
+            "status": true,
+            "panel_id": true,
+            "username": true,
+            "password": true,
+            "links": true,
+            "attempts": true,
+            "last_error": true,
+            "created_at": true,
+            "updated_at": true
+        },
+        "index": {
+            "XTREAMPRO_CONNECTOR_UNIT_ORDER_ID": true,
+            "XTREAMPRO_CONNECTOR_UNIT_CUSTOMER_ID": true,
+            "XTREAMPRO_CONNECTOR_UNIT_STATUS": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "XTREAMPRO_CONNECTOR_UNIT_ORDER_ITEM_ID_UNIT": true,
+            "XTREAMPRO_CONNECTOR_UNIT_ORDER_ITEM_ID_SALES_ORDER_ITEM_ITEM_ID": true
+        }
+    },
+    "xtreampro_connector_reseller": {
+        "column": {
+            "entity_id": true,
+            "customer_id": true,
+            "panel_user_id": true,
+            "username": true,
+            "password": true,
+            "created_at": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "XTREAMPRO_CONNECTOR_RESELLER_CUSTOMER_ID": true,
+            "XTREAMPRO_CONNECTOR_RESELLER_CUSTOMER_ID_CUSTOMER_ENTITY_ENTITY_ID": true
+        }
+    }
+}

@@ -1,0 +1,15 @@
+{
+  "webhook_event_id": "__EVENT__",
+  "event_datetime": "2027-10-04 10:15:30",
+  "version": "V1",
+  "hook_category": "contract_product",
+  "hook_code": "contract_product_renewed_hook",
+  "object_type": "contract_product",
+  "object_id": "__CONTRACT__",
+  "object": {
+    "id": "__CONTRACT__",
+    "product_id": "__PRODUCT__",
+    "quantity": 1,
+    "client": { "email": "__EMAIL__", "fullname": "Harry Lewis" }
+  }
+}

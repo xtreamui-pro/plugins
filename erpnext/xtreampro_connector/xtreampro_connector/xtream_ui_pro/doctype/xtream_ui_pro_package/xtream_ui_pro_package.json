@@ -1,0 +1,166 @@
+{
+ "actions": [],
+ "creation": "2026-10-04 12:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "panel_id",
+  "package_name",
+  "enabled",
+  "column_break_1",
+  "is_official",
+  "official_credits",
+  "duration",
+  "duration_in",
+  "max_connections",
+  "section_trial",
+  "is_trial",
+  "trial_credits",
+  "column_break_2",
+  "trial_duration",
+  "trial_duration_in"
+ ],
+ "fields": [
+  {
+   "fieldname": "panel_id",
+   "fieldtype": "Int",
+   "label": "Panel ID",
+   "reqd": 1,
+   "unique": 1,
+   "read_only": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "package_name",
+   "fieldtype": "Data",
+   "label": "Name",
+   "reqd": 1,
+   "read_only": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "enabled",
+   "fieldtype": "Check",
+   "label": "Offered by the panel",
+   "default": "1",
+   "read_only": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "description": "Cleared when the panel no longer lists the package."
+  },
+  {
+   "fieldname": "column_break_1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "is_official",
+   "fieldtype": "Check",
+   "label": "Official available",
+   "read_only": 1
+  },
+  {
+   "fieldname": "official_credits",
+   "fieldtype": "Float",
+   "label": "Official credits",
+   "read_only": 1
+  },
+  {
+   "fieldname": "duration",
+   "fieldtype": "Int",
+   "label": "Official duration",
+   "read_only": 1
+  },
+  {
+   "fieldname": "duration_in",
+   "fieldtype": "Data",
+   "label": "Official duration unit",
+   "read_only": 1
+  },
+  {
+   "fieldname": "max_connections",
+   "fieldtype": "Int",
+   "label": "Max connections",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_trial",
+   "fieldtype": "Section Break",
+   "label": "Trial"
+  },
+  {
+   "fieldname": "is_trial",
+   "fieldtype": "Check",
+   "label": "Trial available",
+   "read_only": 1
+  },
+  {
+   "fieldname": "trial_credits",
+   "fieldtype": "Float",
+   "label": "Trial credits",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_2",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "trial_duration",
+   "fieldtype": "Int",
+   "label": "Trial duration",
+   "read_only": 1
+  },
+  {
+   "fieldname": "trial_duration_in",
+   "fieldtype": "Data",
+   "label": "Trial duration unit",
+   "read_only": 1
+  }
+ ],
+ "index_web_pages_for_search": 0,
+ "links": [],
+ "modified": "2026-10-04 12:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Xtream UI Pro",
+ "name": "Xtream UI Pro Package",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "role": "Sales Manager",
+   "permlevel": 0,
+   "read": 1,
+   "report": 1,
+   "export": 1
+  },
+  {
+   "role": "Sales User",
+   "permlevel": 0,
+   "read": 1,
+   "report": 1,
+   "export": 1
+  },
+  {
+   "role": "System Manager",
+   "permlevel": 0,
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 1,
+   "report": 1,
+   "export": 1,
+   "share": 1,
+   "print": 1,
+   "email": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 0,
+ "autoname": "format:XP-PKG-{panel_id}",
+ "naming_rule": "Expression",
+ "title_field": "package_name",
+ "show_title_field_in_link": 1,
+ "search_fields": "package_name,panel_id",
+ "in_create": 1,
+ "description": "Synced from the panel by Xtream UI Pro Settings > Sync packages."
+}

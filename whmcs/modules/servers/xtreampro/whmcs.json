@@ -1,0 +1,13 @@
+{
+    "schema": "1.0",
+    "type": "whmcs-servers",
+    "name": "xtreampro",
+    "license": "proprietary",
+    "category": "servers",
+    "description": {
+        "name": "Xtream UI Pro",
+        "tagline": "Provision IPTV lines on an Xtream UI Pro panel",
+        "long": "Creates, renews, suspends, unsuspends, upgrades and terminates IPTV lines (and sub-reseller accounts) through the Reseller API of an Xtream UI Pro panel. Lines are charged to the reseller's credits."
+    },
+    "version": "1.1.1"
+}

@@ -1,0 +1,36 @@
+{% if units %}
+  <div class="table-responsive">
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>{{ xp_col_item }}</th>
+          <th>{{ xp_col_unit }}</th>
+          <th>{{ xp_col_type }}</th>
+          <th>{{ xp_col_status }}</th>
+          <th>{{ xp_col_panel_id }}</th>
+          <th>{{ xp_col_username }}</th>
+          <th>{{ xp_col_password }}</th>
+          <th class="text-end">{{ xp_col_credits }}</th>
+          <th>{{ xp_col_error }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for unit in units %}
+          <tr>
+            <td>{{ unit.name|e }}</td>
+            <td>{{ unit.unit }}</td>
+            <td>{{ unit.kind }}</td>
+            <td>{{ unit.status }}</td>
+            <td>{{ unit.panel_id|e }}</td>
+            <td>{{ unit.username|e }}</td>
+            <td>{{ unit.password|e }}</td>
+            <td class="text-end">{{ unit.credits }}</td>
+            <td class="text-danger">{{ unit.error|e }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% else %}
+  <p class="text-muted">{{ xp_text_no_units }}</p>
+{% endif %}

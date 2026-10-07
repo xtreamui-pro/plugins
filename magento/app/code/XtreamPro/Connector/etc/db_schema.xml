@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <!-- One row per unit (a quantity of 3 = units 1, 2 and 3) of a sold order item: what was provisioned for it. -->
+    <table name="xtreampro_connector_unit" resource="default" engine="innodb" comment="Xtream UI Pro: provisioning result per order item unit">
+        <column xsi:type="int" name="unit_id" unsigned="true" nullable="false" identity="true" comment="Unit Id"/>
+        <column xsi:type="int" name="order_id" unsigned="true" nullable="false" identity="false" comment="Order Id"/>
+        <column xsi:type="int" name="order_item_id" unsigned="true" nullable="false" identity="false" comment="Order Item Id"/>
+        <column xsi:type="int" name="unit" unsigned="true" nullable="false" identity="false" comment="Unit number within the order item, from 1"/>
+        <column xsi:type="int" name="customer_id" unsigned="true" nullable="true" identity="false" comment="Customer Id, empty for a guest order"/>
+        <column xsi:type="varchar" name="kind" nullable="false" length="16" comment="line or reseller"/>
+        <column xsi:type="int" name="package_id" unsigned="true" nullable="true" identity="false" comment="Panel package id (lines)"/>
+        <column xsi:type="smallint" name="trial" unsigned="true" nullable="false" identity="false" default="0" comment="Trial line"/>
+        <column xsi:type="int" name="credits" unsigned="true" nullable="false" identity="false" default="0" comment="Credits to hand over (sub-reseller)"/>
+        <column xsi:type="int" name="credits_given" unsigned="true" nullable="false" identity="false" default="0" comment="Credits handed over so far"/>
+        <column xsi:type="int" name="credits_taken_back" unsigned="true" nullable="false" identity="false" default="0" comment="Credits taken back so far"/>
+        <column xsi:type="varchar" name="status" nullable="false" length="16" default="pending" comment="pending, failed, provisioned, revoking or revoked"/>
+        <column xsi:type="varchar" name="panel_id" nullable="true" length="64" comment="Panel line id or sub-reseller UUID"/>
+        <column xsi:type="varchar" name="username" nullable="true" length="64" comment="Panel username"/>
+        <column xsi:type="text" name="password" nullable="true" comment="Line password, encrypted"/>
+        <column xsi:type="text" name="links" nullable="true" comment="Play links of the line (JSON)"/>
+        <column xsi:type="smallint" name="attempts" unsigned="true" nullable="false" identity="false" default="0" comment="Failed attempts so far"/>
+        <column xsi:type="text" name="last_error" nullable="true" comment="Last error text, for the admin only"/>
+        <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP" comment="Created At"/>
+        <column xsi:type="timestamp" name="updated_at" on_update="true" nullable="false" default="CURRENT_TIMESTAMP" comment="Updated At"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="unit_id"/>
+        </constraint>
+        <constraint xsi:type="unique" referenceId="XTREAMPRO_CONNECTOR_UNIT_ORDER_ITEM_ID_UNIT">
+            <column name="order_item_id"/>
+            <column name="unit"/>
+        </constraint>
+        <constraint xsi:type="foreign" referenceId="XTREAMPRO_CONNECTOR_UNIT_ORDER_ITEM_ID_SALES_ORDER_ITEM_ITEM_ID" table="xtreampro_connector_unit" column="order_item_id" referenceTable="sales_order_item" referenceColumn="item_id" onDelete="CASCADE"/>
+        <index referenceId="XTREAMPRO_CONNECTOR_UNIT_ORDER_ID" indexType="btree">
+            <column name="order_id"/>
+        </index>
+        <index referenceId="XTREAMPRO_CONNECTOR_UNIT_CUSTOMER_ID" indexType="btree">
+            <column name="customer_id"/>
+        </index>
+        <index referenceId="XTREAMPRO_CONNECTOR_UNIT_STATUS" indexType="btree">
+            <column name="status"/>
+        </index>
+    </table>
+    <!-- The one sub-reseller account of a customer. Username and password are stored BEFORE the panel is called, so a retry sends the same ones. -->
+    <table name="xtreampro_connector_reseller" resource="default" engine="innodb" comment="Xtream UI Pro: sub-reseller account of a customer">
+        <column xsi:type="int" name="entity_id" unsigned="true" nullable="false" identity="true" comment="Entity Id"/>
+        <column xsi:type="int" name="customer_id" unsigned="true" nullable="false" identity="false" comment="Customer Id"/>
+        <column xsi:type="varchar" name="panel_user_id" nullable="true" length="64" comment="Panel account UUID, empty until created"/>
+        <column xsi:type="varchar" name="username" nullable="false" length="64" comment="Panel username"/>
+        <column xsi:type="text" name="password" nullable="false" comment="Password, encrypted"/>
+        <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP" comment="Created At"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+        <constraint xsi:type="unique" referenceId="XTREAMPRO_CONNECTOR_RESELLER_CUSTOMER_ID">
+            <column name="customer_id"/>
+        </constraint>
+        <constraint xsi:type="foreign" referenceId="XTREAMPRO_CONNECTOR_RESELLER_CUSTOMER_ID_CUSTOMER_ENTITY_ENTITY_ID" table="xtreampro_connector_reseller" column="customer_id" referenceTable="customer_entity" referenceColumn="entity_id" onDelete="CASCADE"/>
+    </table>
+</schema>
